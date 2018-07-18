@@ -29,3 +29,17 @@ int ft_get_int(t_union *un, int start, int lenght)
     }
     return (ar);
 }
+
+uint8_t* ft_get_char_from_int(t_pc *pc, int num)
+{
+    uint8_t *arg;
+    int k;
+    
+    arg = malloc(sizeof(unsigned char) * 4);
+    k = pc->reg[num];
+    arg[0] = k >> 24;
+    arg[1] = (k & 0xFF0000) >> 16;
+    arg[2] = (k & 0xFF00) >> 8;
+    arg[3] = k & 0xFF;
+    return (arg);
+}
