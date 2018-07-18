@@ -43,3 +43,10 @@ uint8_t* ft_get_char_from_int(t_pc *pc, int num)
     arg[3] = k & 0xFF;
     return (arg);
 }
+
+void ft_check_codage(uint8_t codage, t_pc *pc)
+{
+    pc->arg[0] = codage >> 6;
+    pc->arg[1] = (codage & 0x30) >> 4;
+    pc->arg[2] = (codage & 0xC) >> 2;
+}
