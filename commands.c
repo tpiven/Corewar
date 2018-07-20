@@ -32,20 +32,21 @@ void ft_live(t_pc *pc, t_union *un)
 void ft_load(t_pc *pc, t_union *un)
 {
     unsigned int n;
-    
-    if (un->map[pc->curr_position + 3].value > 16)
-        return ;
-    
+    int plus;
     ft_check_codage(un->map[pc->curr_position + 1].value, pc);
     if (pc->arg[0] == DIR_CODE)
     {
+        plus = 5;
         n = (unsigned int)ft_get_int(un, pc->curr_position, 4);
     }
     if (pc->arg[0] == IND_CODE)
     {
+        plus = 3;
         n = (unsigned int)ft_get_int(un, (pc->curr_position + ((short)ft_get_int(un, pc->curr_position + 1, 2) % IDX_MOD)), 4);
     }
-    pc->reg[un->map[pc->curr_position + 3].value] = n;
+    if (un->map[pc->curr_position + plus].value > 16)
+        return ;
+        pc->reg[un->map[pc->curr_position + plus].value] = n;
     if (n == 0)
         pc->carry = 1;
     else
@@ -74,7 +75,7 @@ void ft_st(t_pc *pc, t_union *un)
     }
     if (pc->arg[1] == IND_CODE)
     {
-        position = pc->curr_position + ((short)ft_get_int(un, pc->curr_position + 1, 2) % IDX_MOD);
+        position = pc->curr_position + ((short)ft_get_int(un, pc->curr_position + 3, 2) % IDX_MOD);
         num = ft_get_char_from_int(pc, pc->reg[one]);
         un->map[position].value = num[0];
         un->map[position + 1].value = num[1];
@@ -124,4 +125,134 @@ void ft_sub(t_pc *pc, t_union *un)
         else
             pc->carry = 0;
     }
+}
+
+void ft_and(t_pc *pc, t_union *un)
+{
+    unsigned int one;
+    unsigned int two;
+    int plus;
+    ft_check_codage(un->map[pc->curr_position + 1].value, pc);
+    if (pc->arg[0] == REG_CODE)
+    {
+        one = pc->reg[un->map[pc->curr_position + 2].value];
+        plus = 3;
+    }
+    if (pc->arg[0] == DIR_CODE)
+    {
+        one = (unsigned int)ft_get_int(un, pc->curr_position + 2, 4);
+        plus = 6;
+    }
+    if (pc->arg[0] == IND_CODE)
+    {
+        one = (unsigned int)ft_get_int(un, (pc->curr_position + ((short)ft_get_int(un, pc->curr_position + 2, 2) % IDX_MOD)), 4);
+        plus = 4;
+    }
+    if (pc->arg[1] == REG_CODE)
+    {
+        two = pc->reg[un->map[pc->curr_position + plus].value];
+        plus += 1;
+    }
+    if (pc->arg[1] == DIR_CODE)
+    {
+        two = (unsigned int)ft_get_int(un, pc->curr_position + plus, 4);
+        plus += 1;
+    }
+    if (pc->arg[1] == IND_CODE)
+    {
+        two = (unsigned int)ft_get_int(un, (pc->curr_position + ((short)ft_get_int(un, pc->curr_position + plus, 2) % IDX_MOD)), 4);
+        plus += 1;
+    }
+    pc->reg[un->map[pc->curr_position + plus].value] = one & two;
+    if ( pc->reg[un->map[pc->curr_position + plus].value] == 0)
+        pc->carry = 1;
+    else
+        pc->carry = 0;
+}
+
+
+void ft_or(t_pc *pc, t_union *un)
+{
+    unsigned int one;
+    unsigned int two;
+    int plus;
+    ft_check_codage(un->map[pc->curr_position + 1].value, pc);
+    if (pc->arg[0] == REG_CODE)
+    {
+        one = pc->reg[un->map[pc->curr_position + 2].value];
+        plus = 3;
+    }
+    if (pc->arg[0] == DIR_CODE)
+    {
+        one = (unsigned int)ft_get_int(un, pc->curr_position + 2, 4);
+        plus = 6;
+    }
+    if (pc->arg[0] == IND_CODE)
+    {
+        one = (unsigned int)ft_get_int(un, (pc->curr_position + ((short)ft_get_int(un, pc->curr_position + 2, 2) % IDX_MOD)), 4);
+        plus = 4;
+    }
+    if (pc->arg[1] == REG_CODE)
+    {
+        two = pc->reg[un->map[pc->curr_position + plus].value];
+        plus += 1;
+    }
+    if (pc->arg[1] == DIR_CODE)
+    {
+        two = (unsigned int)ft_get_int(un, pc->curr_position + plus, 4);
+        plus += 1;
+    }
+    if (pc->arg[1] == IND_CODE)
+    {
+        two = (unsigned int)ft_get_int(un, (pc->curr_position + ((short)ft_get_int(un, pc->curr_position + plus, 2) % IDX_MOD)), 4);
+        plus += 1;
+    }
+    pc->reg[un->map[pc->curr_position + plus].value] = one | two;
+    if ( pc->reg[un->map[pc->curr_position + plus].value] == 0)
+        pc->carry = 1;
+    else
+        pc->carry = 0;
+}
+
+void ft_xor(t_pc *pc, t_union *un)
+{
+    unsigned int one;
+    unsigned int two;
+    int plus;
+    ft_check_codage(un->map[pc->curr_position + 1].value, pc);
+    if (pc->arg[0] == REG_CODE)
+    {
+        one = pc->reg[un->map[pc->curr_position + 2].value];
+        plus = 3;
+    }
+    if (pc->arg[0] == DIR_CODE)
+    {
+        one = (unsigned int)ft_get_int(un, pc->curr_position + 2, 4);
+        plus = 6;
+    }
+    if (pc->arg[0] == IND_CODE)
+    {
+        one = (unsigned int)ft_get_int(un, (pc->curr_position + ((short)ft_get_int(un, pc->curr_position + 2, 2) % IDX_MOD)), 4);
+        plus = 4;
+    }
+    if (pc->arg[1] == REG_CODE)
+    {
+        two = pc->reg[un->map[pc->curr_position + plus].value];
+        plus += 1;
+    }
+    if (pc->arg[1] == DIR_CODE)
+    {
+        two = (unsigned int)ft_get_int(un, pc->curr_position + plus, 4);
+        plus += 1;
+    }
+    if (pc->arg[1] == IND_CODE)
+    {
+        two = (unsigned int)ft_get_int(un, (pc->curr_position + ((short)ft_get_int(un, pc->curr_position + plus, 2) % IDX_MOD)), 4);
+        plus += 1;
+    }
+    pc->reg[un->map[pc->curr_position + plus].value] = one ^ two;
+    if ( pc->reg[un->map[pc->curr_position + plus].value] == 0)
+        pc->carry = 1;
+    else
+        pc->carry = 0;
 }
