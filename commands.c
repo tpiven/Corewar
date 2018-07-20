@@ -406,7 +406,12 @@ void ft_lldi(t_pc *pc, t_union *un)
         plus += 2;
     }
     pc->reg[un->map[pc->curr_position + plus].value] = (unsigned int)ft_get_int(un, (one + two) + pc->curr_position, 4);
+    if (pc->reg[un->map[pc->curr_position + plus].value] == 0)
+        pc->carry = 1;
+    else
+        pc->carry = 0;
 }
+
 
 
 void ft_lfork(t_pc *pc, t_union *un)
