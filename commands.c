@@ -419,5 +419,8 @@ void ft_lfork(t_pc *pc, t_union *un)
 
 void ft_aff(t_pc *pc, t_union *un)
 {
+    unsigned char symbol;
     
+    symbol = pc->reg[un->map[pc->curr_position + 2].value] % 256;
+    ft_putchar(symbol);
 }
