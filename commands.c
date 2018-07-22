@@ -27,16 +27,16 @@ void ft_load(t_pc *pc, t_union *un)
     if (pc->arg[0] == DIR_CODE)
     {
         plus = 5;
-        n = (unsigned int)ft_get_int(un, pc->curr_position, 4);
+        n = (unsigned int)ft_get_int(un, pc->curr_position + 2, 4);
     }
     if (pc->arg[0] == IND_CODE)
     {
         plus = 3;
-        n = (unsigned int)ft_get_int(un, (pc->curr_position + ((short)ft_get_int(un, pc->curr_position + 1, 2) % IDX_MOD)), 4);
+        n = (unsigned int)ft_get_int(un, (pc->curr_position + ((short)ft_get_int(un, pc->curr_position + 2, 2) % IDX_MOD)), 4);
     }
     if (un->map[pc->curr_position + plus].value > 16)
         return ;
-        pc->reg[un->map[pc->curr_position + plus].value] = n;
+    pc->reg[un->map[pc->curr_position + plus].value] = n;
     if (n == 0)
         pc->carry = 1;
     else
