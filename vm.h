@@ -78,7 +78,7 @@ t_bot				*bot_push_back(t_bot *head, char *filename, int id);
 void				bot_clear_list(t_bot *head);
 int 				parse_bot(t_union *un);
 t_pc				*pc_push_back(t_pc *head, int pos, int bot_num);
-t_pc				*pc_push_front(t_pc *head, int pos, int bot_num);
+void        *pc_push_front(t_pc *head, t_pc *new);
 void				delete_pc(t_pc *head, t_pc *to_del);
 void				display_map(t_union *un);
 int ft_get_int(t_union *un, int start, int lenght);

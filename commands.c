@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   commands.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tpiven <marvin@42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/19 17:55:40 by tpiven            #+#    #+#             */
-/*   Updated: 2018/07/19 17:55:41 by tpiven           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "vm.h"
 
 
@@ -347,7 +335,12 @@ void ft_sti(t_pc *pc, t_union *un)
 
 void ft_fork(t_pc *pc, t_union *un)
 {
+    int position;
+    t_pc *new;
     
+    position = pc->curr_position + ((short)ft_get_int(un, pc->curr_position + 1, 2) % IDX_MOD);
+    new = pc_copy(pc, position);
+    pc_push_front(un->pc, new);
 }
 
 void ft_lld(t_pc *pc, t_union *un)
@@ -412,11 +405,14 @@ void ft_lldi(t_pc *pc, t_union *un)
         pc->carry = 0;
 }
 
-
-
 void ft_lfork(t_pc *pc, t_union *un)
 {
+    int position;
+    t_pc *new;
     
+    position = pc->curr_position + ((short)ft_get_int(un, pc->curr_position + 1, 2));
+    new = pc_copy(pc, position);
+    pc_push_front(un->pc, new);
 }
 
 void ft_aff(t_pc *pc, t_union *un)
