@@ -4,16 +4,18 @@
 void ft_live(t_pc *pc, t_union *un)
 {
     int num_player;
+    t_bot *tmp;
     
     pc->alive = 1;
+    tmp = un->bot;
     num_player = ft_get_int(un, pc->curr_position + 1, 4);
-    while (un->bot->next != NULL)
+    while (tmp != NULL)
     {
-        if (un->bot->id == num_player)
-           un->bot->last_live = un->cycle;
-        if (pc->creator_id == un->bot->id)
-             un->bot->num_live += 1;
-       un->bot = un->bot->next;
+        if (tmp->id == num_player)
+           tmp->last_live = un->cycle;
+        if (pc->creator_id == tmp->id)
+             tmp->num_live += 1;
+       tmp = tmp->next;
     }
 }
 
