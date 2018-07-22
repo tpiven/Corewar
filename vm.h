@@ -44,7 +44,7 @@ typedef	struct		s_pc
 	int 			reg[16];
     uint8_t arg[3];
 	int 			alive;
-	char 			*curr_command;
+	unsigned char curr_command;
 	int 			number_cycles_to_wait;
 	struct s_pc		*next;
 	struct s_pc		*prev;
