@@ -1,14 +1,12 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_get_int.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tpiven <marvin@42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/16 17:02:04 by tpiven            #+#    #+#             */
-/*   Updated: 2018/07/16 17:02:12 by tpiven           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+//
+//  ft_get_int.c
+//  corewar
+//
+//  Created by Tetiana PIVEN on 7/18/18.
+//  Copyright © 2018 Tetiana PIVEN. All rights reserved.
+//
+
+#include "vm.h"
 
 
 int ft_get_int(t_union *un, int start, int lenght)
@@ -30,7 +28,7 @@ int ft_get_int(t_union *un, int start, int lenght)
     return (ar);
 }
 
-uint8_t* ft_get_char_from_int(t_pc *pc, int num)
+uint8_t* ft_get_char_from_int(t_pc *pc, unsigned int num)
 {
     uint8_t *arg;
     int k;
@@ -44,9 +42,9 @@ uint8_t* ft_get_char_from_int(t_pc *pc, int num)
     return (arg);
 }
 
-void ft_check_codage(uint8_t codage, t_pc *pc)
+void ft_check_codage(uint8_t codage, t_union *un)
 {
-    pc->arg[0] = codage >> 6;
-    pc->arg[1] = (codage & 0x30) >> 4;
-    pc->arg[2] = (codage & 0xC) >> 2;
+    un->arg[0] = codage >> 6;
+    un->arg[1] = (codage & 0x30) >> 4;
+    un->arg[2] = (codage & 0xC) >> 2;
 }
