@@ -42,8 +42,7 @@ typedef	struct		s_pc
 	int 			carry;
 	int 			creator_id;
 	int 			reg[16];
-    uint8_t arg[3];
-	int 			alive;
+   	int 			alive;
 	unsigned char curr_command;
 	int 			number_cycles_to_wait;
 	struct s_pc		*next;
@@ -71,6 +70,7 @@ typedef struct		s_union
 	int 			dump;
 	int 			argc;
     int cycle;
+    uint8_t arg[3];
 	t_counter		count;
 }					t_union;
 
@@ -78,10 +78,12 @@ t_bot				*bot_push_back(t_bot *head, char *filename, int id);
 void				bot_clear_list(t_bot *head);
 int 				parse_bot(t_union *un);
 t_pc				*pc_push_back(t_pc *head, int pos, int bot_num);
-void        *pc_push_front(t_pc *head, t_pc *new);
+t_pc        *pc_push_front(t_pc *head, t_pc *new);
 void				delete_pc(t_pc *head, t_pc *to_del);
 void				display_map(t_union *un);
 int ft_get_int(t_union *un, int start, int lenght);
 uint8_t* ft_get_char_from_int(t_pc *pc, unsigned int num);
-void ft_check_codage(uint8_t codage, t_pc *pc);
+void ft_check_codage(uint8_t codage, t_union *un);
+t_pc    *pc_copy(t_pc *prev, int position);
+
 #endif
