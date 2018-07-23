@@ -27,12 +27,12 @@ void ft_load(t_pc *pc, t_union *un)
     ft_check_codage(un->map[pc->curr_position + 1].value, un);
     if (un->arg[0] == DIR_CODE)
     {
-        plus = 5;
+        plus = 6;
         n = (unsigned int)ft_get_int(un, pc->curr_position + 2, 4);
     }
     if (un->arg[0] == IND_CODE)
     {
-        plus = 3;
+        plus = 4;
         n = (unsigned int)ft_get_int(un, (pc->curr_position + ((short)ft_get_int(un, pc->curr_position + 2, 2) % IDX_MOD)), 4);
     }
     if (un->map[pc->curr_position + plus].value > 16)
@@ -267,7 +267,8 @@ void ft_zjmp(t_pc *pc, t_union *un)
     {
         pc->curr_position = pc->curr_position + ((short)ft_get_int(un, pc->curr_position + 2, 2) % IDX_MOD);
     }
-    pc->curr_position = pc->curr_position + 5;
+    else
+        pc->curr_position = pc->curr_position + 3;
 }
 
 void ft_ldi(t_pc *pc, t_union *un)
@@ -356,7 +357,7 @@ void ft_fork(t_pc *pc, t_union *un)
     
     position = pc->curr_position + ((short)ft_get_int(un, pc->curr_position + 1, 2) % IDX_MOD);
     new = pc_copy(pc, position);
-    pc_push_front(un->pc, new);
+    un->pc = pc_push_front(un->pc, new);
     pc->curr_position = pc->curr_position + 3;
 }
 
