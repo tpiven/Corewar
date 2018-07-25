@@ -62,6 +62,7 @@ void		display_map(t_union *un)
 	int key;
 	int i;
 	int k;
+    WINDOW *win;
 
 	key = 1;
 	initscr();
@@ -69,7 +70,10 @@ void		display_map(t_union *un)
 	nodelay(stdscr, TRUE);
 	noecho();
 	curs_set(0);
+    int yMax, xMax;
+    getmaxyx(stdscr, yMax, xMax);
 	start_color();
+    win = newwin(yMax - 2, xMax - 2, 1, 1);
 	init_pair(9,  COLOR_BLACK,COLOR_WHITE);
 	init_pair(1, COLOR_WHITE, COLOR_BLACK);
 	init_pair(2, COLOR_RED, COLOR_BLACK);
@@ -87,44 +91,60 @@ void		display_map(t_union *un)
 	while (key)
 	{
 
-		i = 0;
-		k = 0;
+        i = 0;
+        k = 0;
+        int x = 0;
+        int y = 0;
 
-			/* Start color 			*/
-		while (i < MEM_SIZE)
-		{
-			attron(COLOR_PAIR(un->map[i].color));
-			if (un->map[i].cursor)
-			{
-				//attron(A_BOLD);
-				attron(COLOR_PAIR(un->map[i].color + 10));
-			}
 
-			printw("%02x", un->map[i].value);
-			attroff(COLOR_PAIR(un->map[i].color));
-			printw(" ");
-			if (un->map[i].cursor)
-			{
-				attroff(A_BOLD);
-				attroff(COLOR_PAIR(un->map[i].color + 10));
-			}
-			++k;
-			if (k == 64)
-			{
-				printw("\n");
-				k = 0;
-			}
-			++i;
-		}
-		refresh();
-		key = getch();
-		if (key == 27)
-			break ;
-		usleep(100000);
-		corewar(un);
-		update_pc(un);
-		clear();
+        /* Start color 			*/
+        while (i < MEM_SIZE)
+        {
+            wattron(win, COLOR_PAIR(un->map[i].color));
+            if (un->map[i].cursor)
+            {
+                attron(A_BOLD);
+                wattron(win, COLOR_PAIR(un->map[i].color + 10));
+            }
+
+            mvwprintw(win, y, x, "%02x ", un->map[i].value);
+            x +=3;
+
+            wattroff(win, COLOR_PAIR(un->map[i].color));
+            wprintw(win, " ");
+            if (un->map[i].cursor)
+            {
+                wattroff(win, A_BOLD);
+                wattroff(win, COLOR_PAIR(un->map[i].color + 10));
+            }
+            ++k;
+            if (k == 64)
+            {
+                y++;
+                x = 0;
+                k = 0;
+            }
+            ++i;
+        }
+        wrefresh(win);
+        refresh();
+        key = getch();
+        if (key == 27)
+            break ;
+        if (key == 32)
+        {
+            while (1)
+            {
+                key = getch();
+                if (key == 32)
+                    break ;
+            }
+        }
+        usleep(100000);
+        corewar(un);
+        update_pc(un);
+        //clear();
 }
 	endwin();
-	curs_set(1);
+	//curs_set(1);
 }
