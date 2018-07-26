@@ -54,7 +54,7 @@ int 			set_bot_id(t_union *un)
 
 	static int	id = -1;
 
-	if (id == 1 && !first_check(un))
+	if (id == -1 && !first_check(un))
 		return (-1);
 	tmp = un->bot;
 	while (tmp)

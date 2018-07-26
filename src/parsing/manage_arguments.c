@@ -38,6 +38,7 @@ static int if_file(t_union *un, char *num, char *filename)
 	else
 		id = 0;
 	un->bot = bot_push_back(un->bot, filename, id);
+	++un->bots_number;
 
 	++un->count.c;
 	++un->count.i;
@@ -52,7 +53,8 @@ static void	visualisation(int *i, t_union *un)
 
 static int flag_n(t_union *un, char **argv)
 {
-	if (un->count.i + 2 >= un->argc || !is_number(argv[un->count.i + 1]))
+	if (un->count.i + 2 >= un->argc || !is_number(argv[un->count.i + 1])
+			|| ft_atoi(argv[un->count.i + 1]) <=0)
 		return (0);
 	un->count.i += 2;
 	if ((un->count.fd = open(argv[un->count.i], O_RDONLY)) < 0)
@@ -75,7 +77,7 @@ int		check_if_input_correct(char **argv, t_union *un)
 		if (!ft_strcmp(argv[un->count.i], "-dump"))
 		{
 			if (un->count.i + 1 >= un->argc || !is_number(argv[un->count.i + 1])
-					|| ft_atoi(argv[un->count.i + 1]) < 0)
+					|| ft_atoi(argv[un->count.i + 1]) <=0)
 				return (0);
 			un->dump = ft_atoi(argv[un->count.i + 1]);
 			un->count.i += 2;

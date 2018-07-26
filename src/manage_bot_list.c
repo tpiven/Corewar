@@ -16,11 +16,11 @@ static t_bot		*bot_new(char *filename, int id)
 {
 	t_bot			*res;
 
-	if (!(res = (t_bot *)malloc(sizeof(t_bot))))
+	if (!(res = (t_bot *)malloc(sizeof(t_bot) + 1)))
 		return (NULL);
 	if (!(res->filename = (char *)ft_memalloc(ft_strlen(filename) + 1)))
 		return (NULL);
-	res->code = (unsigned char*)ft_memalloc(CHAMP_MAX_SIZE + 1);
+	res->code = (unsigned char*)ft_memalloc(CHAMP_MAX_SIZE * sizeof(unsigned char) + 10);
 	res->filename = ft_strcpy(res->filename, filename);
 	res->size = 0;
 	res->id = id;

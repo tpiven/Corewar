@@ -53,6 +53,11 @@ int 		get_bot_code(const int fd, t_bot **tmp)
 			(*tmp)->code[all] = buf[0];
 			++all;
 			flag = 1;
+			if (all > CHAMP_MAX_SIZE)
+			{
+				ft_printf(RED"Error: File %s has too large a code (%i bytes > 682 bytes)\n"RESET, (*tmp)->filename, (*tmp)->code_length);
+				return (0);
+			}
 		}
 	}
 		(*tmp)->code_length = all;

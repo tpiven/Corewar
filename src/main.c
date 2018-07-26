@@ -13,47 +13,30 @@
 #include "../inc/vm.h"
 #include "../inc/parsing.h"
 
-void			initialize_map(t_union *un)
-{
-	t_map		*tmp;
-	int 		i;
-
-	tmp = un->map;
-	i = 0;
-	while (i < MEM_SIZE)
-	{
-		tmp[i].color = 1;
-		tmp[i].value = '\0';
-		tmp[i].cursor = 0;
-		++i;
-	}
-}
-
-void			without_visual(t_union *un)
-{
-	while(un->cycle_to_die > 0 && un->pc)
-	{
-		corewar(un);
-	}
-}
 
 int				main(int argc, char **argv)
 {
 	t_union		un;
 
+	un.dump = 0;
 	un.visual = 0;
 	un.checks = 0;
 	un.cycle_to_die = CYCLE_TO_DIE;
+	un.bots_number = 0;
+	un.procces_number = 0;
 	if (parsing(argc, argv, &un))
 	{
-		ft_printf("OK\n");
 		un.map = (t_map *)malloc(MEM_SIZE * sizeof(t_map) + 1);
 		initialize_map(&un);
 		move_code_to_map(&un, 2);
+		pc_sort_ascending(&un);
 		if (un.visual)
 			display_map(&un);
 		else
 			without_visual(&un);
+		bot_clear_list(un.bot);
+		pc_clear_list(un.pc);
+		free(un.map);
 	}
 	return (0);
 }

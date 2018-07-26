@@ -23,7 +23,6 @@ void choose_number_cycles_to_wait(t_pc *pc, t_union *un)
         pc->number_cycles_to_wait = 1000;
     else if (pc->curr_command == 16)
         pc->number_cycles_to_wait = 2;
-	pc->number_cycles_to_wait = 0; //delete delay
 }
 
 void choose_commands(t_pc *pc, t_union *un)

@@ -29,7 +29,6 @@ static t_pc *clear_arr(t_pc *pc)
 t_pc	*pc_new(int pos, int bot_num)
 {
 	t_pc	*res;
-	int 	i;
 
 	if (!(res = (t_pc *)malloc(sizeof(t_pc))))
 		return (NULL);
@@ -37,12 +36,6 @@ t_pc	*pc_new(int pos, int bot_num)
 	res->carry = 0;
 	res->creator_id = bot_num;
 	res->reg[0] = res->creator_id;
-	i = 1;
-	while (i < 16)
-	{
-		res->reg[i] = 0;
-		++i;
-	}
 	res->alive = 0;
 	res->curr_command = 0;
 	res->number_cycles_to_wait = -1;
@@ -60,7 +53,7 @@ t_pc    *pc_copy(t_pc *prev, int position)
 	if (!(res = (t_pc *)malloc(sizeof(t_pc))))
 		return (NULL);
 	res->curr_position = position;
-	res->carry = 0; //перевірити
+	res->carry = prev->carry; //перевірити
 	res->creator_id = prev->creator_id;
     while (i < 16)
     {
@@ -76,35 +69,17 @@ t_pc    *pc_copy(t_pc *prev, int position)
 }
 
 
-t_pc		*pc_push_front(t_pc *head, t_pc *new)
+t_pc		*pc_push_front(t_pc *head, t_pc *new, t_union *un)
 {
 	new->next = head;
+	++un->procces_number;
 	if (head != NULL)
 		head->prev = new;
 	return (new);
 }
 
-/*t_pc		*pc_push_back(t_pc *head, int pos, int bot_num)
-{
-	t_pc	*tmp;
-	t_pc	*new;
-	t_pc	*prev;
 
-	prev = NULL;
-	tmp = head;
-	if (!tmp)
-		return (pc_new(pos, bot_num));
-	while (tmp->next)
-	{
-		prev = tmp;
-		tmp = tmp->next;
-	}
-	new = pc_new(pos, bot_num);
-	tmp->next = new;
-	return (head);
-}*/
-
-t_pc		*delete_pc(t_pc *head, t_pc *to_del)
+t_pc		*delete_pc(t_pc *head, t_pc *to_del, t_union *un)
 {
 	t_pc	*tmp;
 	t_pc	*next;
@@ -117,6 +92,7 @@ t_pc		*delete_pc(t_pc *head, t_pc *to_del)
 			next = tmp->next;
 			if (tmp == head)
 			{
+				--un->procces_number;
 				if (next)
 					next->prev = NULL;
 				return (next);
@@ -126,20 +102,11 @@ t_pc		*delete_pc(t_pc *head, t_pc *to_del)
 			if (tmp->next)
 				tmp->next->prev = tmp->prev;
 			free(tmp);
+			if (un->procces_number == 0)
+				head = NULL;
 			return (head);
 		}
 		tmp = tmp->next;
 	}
 	return (head);
 }
-/*if (tmp == to_del)
-{
-free(tmp);
-if (prev)
-prev->next = next;
-if (next)
-next->prev = prev;
-return ;
-}
-prev = tmp;
- */
