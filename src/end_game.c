@@ -34,7 +34,7 @@ int		decrease_cycle_to_die(t_union *un)
 	bot = un->bot;
 	while (bot)
 	{
-		if (bot->num_live > 21)
+		if (bot->num_live >= 21)
 			return (1);
 		bot = bot->next;
 	}
