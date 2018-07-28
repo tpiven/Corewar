@@ -55,14 +55,12 @@ void		execute_command(t_pc *pc, t_union *un)
 
 		if (un->map[pc->curr_position].value >= 1 && un->map[pc->curr_position].value <= 16 && pc->number_cycles_to_wait == -1)
 		{
-			//ft_printf("comand %d\n", un->cycle);
 			choose_number_cycles_to_wait(pc, un);
 			--pc->number_cycles_to_wait;
 
 		}
 		else if (pc->number_cycles_to_wait == 1)
 		{
-			//ft_printf("fgd %d\n", un->cycle);
 			choose_commands(pc, un);
 			pc->number_cycles_to_wait = -1;
 		}
@@ -70,10 +68,7 @@ void		execute_command(t_pc *pc, t_union *un)
 			--pc->number_cycles_to_wait;
 		else
 			pc->curr_position++;
-	if (pc->curr_position >= MEM_SIZE)
-		pc->curr_position %= MEM_SIZE;
-	else if (pc->curr_position < 0)
-		pc->curr_position += MEM_SIZE;
+	pc->curr_position = ft_check_position(pc->curr_position);
 
 }
 
@@ -92,13 +87,8 @@ void		move_pc(t_union *un)
 void    corewar(t_union *un)
 {
 
-	static int     k = 0;
-	++un->cycle;
-	++k;
-	if (k == un->cycle_to_die  && un->cycle != 0)
+	if (un->k == un->cycle_to_die  && un->cycle != 0)
 	{
-//		ft_printf("cycle %d\n", un->cycle);
-//		ft_printf("k = %d\n", k);
 		check_if_pc_alive(un);
 		if (decrease_cycle_to_die(un))
 		{
@@ -111,13 +101,12 @@ void    corewar(t_union *un)
 		{
 			un->checks = 0;
 			un->cycle_to_die -= CYCLE_DELTA;
-			//ft_printf("cycle_to_die %d\n", un->cycle_to_die);
-
 		}
 		clear_num_live(un);
-		k = 0;
+		un->k = 0;
 	}
+	++un->cycle;
+	++un->k;
 	move_pc(un);
-//	++un->cycle;
-//	++k;
+
 }

@@ -103,7 +103,7 @@ void		display_map(t_union *un)
         }
         if (key == 27)
             break ;
-        usleep(100000);
+        //usleep(100000);
         corewar(un);
         update_pc(un);
         //clear();
