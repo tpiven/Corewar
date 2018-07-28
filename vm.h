@@ -151,6 +151,22 @@ void ft_load_ind(t_pc *pc, t_union *un);
 void ft_sti_ind_dir(t_pc *pc, t_union *un);
 void ft_sti_dir_dir(t_pc *pc, t_union *un);
 void ft_sti_reg_dir(t_pc *pc, t_union *un);
+void ft_and_reg_dir(t_pc *pc, t_union *un);
+void ft_and_dir_dir(t_pc *pc, t_union *un);
+void ft_and_ind_dir(t_pc *pc, t_union *un);
+void ft_and_reg_ind(t_pc *pc, t_union *un);
+void ft_and_dir_ind(t_pc *pc, t_union *un);
+void ft_or_reg_dir(t_pc *pc, t_union *un);
+void ft_or_dir_dir(t_pc *pc, t_union *un);
+void ft_or_ind_dir(t_pc *pc, t_union *un);
+void ft_or_reg_ind(t_pc *pc, t_union *un);
+void ft_or_dir_ind(t_pc *pc, t_union *un);
+void ft_xor_reg_dir(t_pc *pc, t_union *un);
+void ft_xor_dir_dir(t_pc *pc, t_union *un);
+void ft_xor_ind_dir(t_pc *pc, t_union *un);
+void ft_xor_reg_ind(t_pc *pc, t_union *un);
+void ft_xor_dir_ind(t_pc *pc, t_union *un);
+
 
 
 //

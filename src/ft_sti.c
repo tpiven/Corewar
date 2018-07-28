@@ -92,13 +92,6 @@ void ft_sti_ind_reg(t_pc *pc, t_union *un)
 
 void ft_sti(t_pc *pc, t_union *un)
 {
-	int plus;
-	int one;
-	int two;
-	int position;
-	uint8_t *num;
-
-	int d = (un->map[ft_check_position(pc->curr_position + 1)].value);
 	if (STI(un->map[ft_check_position(pc->curr_position + 1)].value) && STI_COD(un->map[ft_check_position(pc->curr_position + 1)].value))
 	{
 		pc->curr_position += 2;
