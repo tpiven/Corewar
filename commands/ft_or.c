@@ -89,7 +89,7 @@ void ft_or(t_pc *pc, t_union *un)
 	ft_check_codage(un->map[ft_check_position(pc->curr_position + 1)].value, un);
 	if (AND_OR(un->map[ft_check_position(pc->curr_position + 1)].value) && AND_XOR(un->map[ft_check_position(pc->curr_position + 1)].value))
 	{
-		pc->curr_position += ft_move_wrong_codage(un);
+		pc->curr_position += ft_move_wrong_codage(un, pc->curr_command);
 		return ;
 	}
 	if (un->arg[0] == REG_CODE && un->arg[1] == REG_CODE)
