@@ -49,7 +49,7 @@ void ft_load_ind(t_pc *pc, t_union *un)
 void ft_load(t_pc *pc, t_union *un)
 {
 	ft_check_codage(un->map[ft_check_position(pc->curr_position + 1)].value, un);
-	if (LD_COD(un->map[pc->curr_position + 1].value))
+	if (LD_COD(un->map[pc->curr_position + 1].value >> 2))
 	{
 		pc->curr_position += ft_move_wrong_codage(un, pc->curr_command);
 		return ;

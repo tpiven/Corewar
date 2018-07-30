@@ -52,7 +52,7 @@ void ft_st_ind(t_pc *pc, t_union *un)
 void ft_st(t_pc *pc, t_union *un)
 {
 	ft_check_codage(un->map[ft_check_position(pc->curr_position + 1)].value,  un);
-	if (ST_COD(un->map[ft_check_position(pc->curr_position + 1)].value))
+	if (ST_COD(un->map[ft_check_position(pc->curr_position + 1)].value >> 2))
 	{
 		pc->curr_position += ft_move_wrong_codage(un, pc->curr_command);
 		return ;

@@ -89,10 +89,7 @@ uint8_t* ft_get_char_from_int(t_pc *pc, unsigned int num)
 
 void ft_check_codage(uint8_t codage, t_union *un)
 {
-	int i;
-
     un->arg[0] = codage >> 6;
     un->arg[1] = (codage & 0x30) >> 4;
     un->arg[2] = (codage & 0xC) >> 2;
-
 }
