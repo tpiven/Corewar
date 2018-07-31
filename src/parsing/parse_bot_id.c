@@ -6,16 +6,15 @@
 /*   By: vmiachko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/06 12:48:38 by vmiachko          #+#    #+#             */
-/*   Updated: 2018/07/06 12:48:39 by vmiachko         ###   ########.fr       */
+/*   Updated: 2018/07/27 16:20:36 by vmiachko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/vm.h"
 
-
-static int 	identical(const int *arr, int n)
+static int		identical(const int *arr, int n)
 {
-	int i;
+	int			i;
 
 	i = 0;
 	while (i < n - 1)
@@ -27,12 +26,12 @@ static int 	identical(const int *arr, int n)
 	return (1);
 }
 
-static int	first_check(t_union *un)
+static int		first_check(t_union *un)
 {
-	t_bot	*tmp;
-	int 	a[4];
-	int		i;
-	int 	*arr;
+	t_bot		*tmp;
+	int			a[4];
+	int			i;
+	int			*arr;
 
 	i = 0;
 	tmp = un->bot;
@@ -46,12 +45,8 @@ static int	first_check(t_union *un)
 	return (identical(arr, i + 1));
 }
 
-
-int 			set_bot_id(t_union *un)
+int				set_bot_id(t_union *un, t_bot *tmp, t_bot *tmp1)
 {
-	t_bot		*tmp;
-	t_bot		*tmp1;
-
 	static int	id = -1;
 
 	if (id == -1 && !first_check(un))

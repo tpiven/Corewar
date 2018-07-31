@@ -6,14 +6,14 @@
 /*   By: vmiachko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/05 14:39:07 by vmiachko          #+#    #+#             */
-/*   Updated: 2018/07/05 14:39:10 by vmiachko         ###   ########.fr       */
+/*   Updated: 2018/07/27 19:28:46 by vmiachko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/parsing.h"
 #include "../../inc/vm.h"
 
-static int is_number(char *str)
+static int	is_number(char *str)
 {
 	int i;
 
@@ -27,9 +27,10 @@ static int is_number(char *str)
 	return (1);
 }
 
-static int if_file(t_union *un, char *num, char *filename)
+static int	if_file(t_union *un, char *num, char *filename)
 {
 	int id;
+
 	if (un->count.c >= 4)
 		return (0);
 	close(un->count.fd);
@@ -39,22 +40,26 @@ static int if_file(t_union *un, char *num, char *filename)
 		id = 0;
 	un->bot = bot_push_back(un->bot, filename, id);
 	++un->bots_number;
-
 	++un->count.c;
 	++un->count.i;
 	return (1);
 }
 
-static void	visualisation(int *i, t_union *un)
+static int	flag_dump(t_union *un, char **argv)
 {
-	un->visual = 1;
-	++*i;
+	if (un->count.i + 1 >= un->argc || !is_number(argv[un->count.i + 1])
+			|| ft_atoi(argv[un->count.i + 1]) <= 0)
+		return (0);
+	un->dump = ft_atoi(argv[un->count.i + 1]);
+	un->count.i += 2;
+	return (1);
 }
 
-static int flag_n(t_union *un, char **argv)
+static int	flag_n(t_union *un, char **argv)
 {
 	if (un->count.i + 2 >= un->argc || !is_number(argv[un->count.i + 1])
-			|| ft_atoi(argv[un->count.i + 1]) <=0)
+			|| ft_atoi(argv[un->count.i + 1]) <= 0
+				|| ft_atoi(argv[un->count.i + 1]) > 4)
 		return (0);
 	un->count.i += 2;
 	if ((un->count.fd = open(argv[un->count.i], O_RDONLY)) < 0)
@@ -67,35 +72,41 @@ static int flag_n(t_union *un, char **argv)
 	return (1);
 }
 
-
-int		check_if_input_correct(char **argv, t_union *un)
+int			flag_c(int *i, t_union *un)
 {
+	un->c = 1;
+	++*i;
+	return (1);
+}
 
-	while (un->count.i < un->argc)
+int			flag_p(int *i, t_union *un)
+{
+	un->p = 1;
+	++*i;
+	return (1);
+}
+
+int			check_arg(t_union *un, char **argv)
+{
+	if (!ft_strcmp(argv[un->count.i], "-dump"))
+		return (flag_dump(un, argv));
+	else if (!ft_strcmp(argv[un->count.i], "-n"))
+		return (flag_n(un, argv));
+	else if ((un->count.fd = open(argv[un->count.i], O_RDONLY)) > 0)
 	{
-
-		if (!ft_strcmp(argv[un->count.i], "-dump"))
-		{
-			if (un->count.i + 1 >= un->argc || !is_number(argv[un->count.i + 1])
-					|| ft_atoi(argv[un->count.i + 1]) <=0)
-				return (0);
-			un->dump = ft_atoi(argv[un->count.i + 1]);
-			un->count.i += 2;
-		}
-		else if (!ft_strcmp(argv[un->count.i], "-n"))
-		{
-			if (!flag_n(un, argv))
-				return (0);
-		}
-		else if ((un->count.fd = open(argv[un->count.i], O_RDONLY)) > 0)
-		{
-			if (!if_file(un, NULL, argv[un->count.i]))
-				return (-1);
-		}
-		else if (!ft_strcmp("-v", argv[un->count.i]))
-			visualisation(&un->count.i, un);
+		if (!if_file(un, NULL, argv[un->count.i]))
+			return (-1);
 		else
-			return (0);
+			return (1);
 	}
-	return (un->count.c == 0 ? 0 : 1);
+	else if (!ft_strcmp("-v", argv[un->count.i]))
+		return (flag_visualisation(&un->count.i, un));
+	else if (!ft_strcmp("-a", argv[un->count.i]))
+		return (flag_a(&un->count.i, un));
+	else if (!ft_strcmp("-c", argv[un->count.i]))
+		return (flag_c(&un->count.i, un));
+	else if (!ft_strcmp("-p", argv[un->count.i]))
+		return (flag_p(&un->count.i, un));
+	else
+		return (0);
 }
