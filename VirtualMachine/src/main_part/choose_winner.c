@@ -35,8 +35,10 @@ void				print_winner(t_union *un)
 	if (id == -999)
 		exit(33);
 	bot = find_bot(id, un);
-	ft_printf(GREEN"Contestant %i, \"%s\", has won !\n"RESET,
-			bot->id, bot->name);
+//	ft_printf(GREEN"Contestant %i, \"%s\", has won !\n"RESET,
+//			bot->id, bot->name);
+	ft_printf("Contestant %i, \"%s\", has won !\n",
+			-bot->id, bot->name);
 }
 
 void				print_players_info(t_union *un)

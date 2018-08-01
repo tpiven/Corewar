@@ -61,7 +61,7 @@ void				ft_xor_ind_reg(t_pc *pc, t_union *un)
 	unsigned int	three;
 
 	one = (unsigned int)ft_get_int(un, cp(pc->curr_position +
-		((short)ft_get_int(un, cp(pc->curr_position + 2), 2))), 4);
+		((short)ft_get_int(un, cp(pc->curr_position + 2), 2) % IDX_MOD)), 4);
 	two = un->map[cp(pc->curr_position + 4)].value;
 	three = un->map[cp(pc->curr_position + 5)].value;
 	if (two <= 16 && two > 0 && three <= 16 && three > 0)
@@ -82,9 +82,9 @@ void				ft_xor_ind_ind(t_pc *pc, t_union *un)
 	unsigned int	three;
 
 	one = (unsigned int)ft_get_int(un, cp(pc->curr_position +
-		((short)ft_get_int(un, cp(pc->curr_position + 2), 2))), 4);
+		((short)ft_get_int(un, cp(pc->curr_position + 2), 2) % IDX_MOD)), 4);
 	two = (unsigned int)ft_get_int(un, cp(pc->curr_position +
-		((short)ft_get_int(un, cp(pc->curr_position + 4), 2))), 4);
+		((short)ft_get_int(un, cp(pc->curr_position + 4), 2) % IDX_MOD)), 4);
 	three = un->map[cp(pc->curr_position + 6)].value;
 	if (three <= 16 && three > 0)
 	{

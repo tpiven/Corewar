@@ -35,8 +35,8 @@ void		ft_sti_reg_reg(t_pc *pc, t_union *un)
 	if (one <= 16 && one > 0 && two <= 16
 		&& two > 0 && three <= 16 && three > 0)
 	{
-		position = (int)(pc->reg[two - 1] +
-			pc->reg[three - 1]) % IDX_MOD + pc->curr_position;
+		position = ((int)pc->reg[two - 1] +
+				(int)pc->reg[three - 1]) % IDX_MOD + pc->curr_position;
 		position = cp(position);
 		num = ft_get_char_from_int(pc, one - 1);
 		f(un, position, num);
