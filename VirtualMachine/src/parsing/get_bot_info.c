@@ -19,7 +19,10 @@ int					get_bot_name(const int fd, t_bot **tmp)
 
 	r = (int)read(fd, &(*tmp)->name, 128);
 	if (r < 128)
+	{
+		ft_printf(RED"Wrong bot name.\n"RESET);
 		return (0);
+	}
 	return (1);
 }
 
@@ -30,7 +33,10 @@ int					get_bot_size(const int fd, t_bot **tmp)
 
 	r = (int)read(fd, &buf, 4);
 	if (r < 4)
+	{
+		ft_printf(RED"Wrong bot size.\n"RESET);
 		return (0);
+	}
 	(*tmp)->size = 0;
 	(*tmp)->size += buf[3] +
 		(buf[2] << 8) +
@@ -43,9 +49,12 @@ int					get_bot_comment(const int fd, t_bot **tmp)
 {
 	int				r;
 
-	r = (int)read(fd, &(*tmp)->comment, 254);
-	if (r < 254)
+	r = (int)read(fd, &(*tmp)->comment, 2048);
+	if (r < 2048)
+	{
+		ft_printf(RED"Wrong bot comment.\n"RESET);
 		return (0);
+	}
 	return (1);
 }
 
@@ -68,6 +77,7 @@ int					get_bot_code(const int fd, t_bot **tmp)
 			if (++all > CHAMP_MAX_SIZE)
 			{
 				error_length(tmp, fd, buf, all);
+				ft_printf(RED"Wrong bot code.\n"RESET);
 				return (0);
 			}
 		}

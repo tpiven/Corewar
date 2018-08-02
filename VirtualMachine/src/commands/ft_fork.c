@@ -19,7 +19,7 @@ void		ft_fork(t_pc *pc, t_union *un)
 	t_pc	*new;
 
 	position = pc->curr_position +
-		((short)ft_get_int(un, pc->curr_position + 1, 2) % IDX_MOD);
+		((short)ft_get_int(un, cp(pc->curr_position + 1), 2) % IDX_MOD);
 	position = cp(position);
 	new = pc_copy(pc, position);
 	un->pc = pc_push_front(un->pc, new, un);
@@ -32,7 +32,7 @@ void		ft_lfork(t_pc *pc, t_union *un)
 	t_pc	*new;
 
 	position = pc->curr_position +
-		((short)ft_get_int(un, pc->curr_position + 1, 2));
+		((short)ft_get_int(un, cp(pc->curr_position + 1), 2) % 4096);
 	position = cp(position);
 	new = pc_copy(pc, position);
 	un->pc = pc_push_front(un->pc, new, un);

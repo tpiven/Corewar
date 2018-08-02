@@ -37,7 +37,7 @@ void				ft_lld_ind(t_pc *pc, t_union *un)
 	unsigned int	n;
 
 	n = (unsigned int)ft_get_int(un, cp(pc->curr_position +
-		((short)ft_get_int(un, cp(pc->curr_position + 2), 2))), 4);
+		((short)ft_get_int(un, cp(pc->curr_position + 2), 2)) % 4096), 4);
 	n = n > 0x7fffffff ? (n >> 16) | 0xffff0000 : n >> 16;
 	if (un->map[cp(pc->curr_position + 4)].value > 16 ||
 		un->map[cp(pc->curr_position + 4)].value == 0)

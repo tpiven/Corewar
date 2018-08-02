@@ -36,5 +36,6 @@ void			print_winner_v(t_union *un);
 void			change_speed(int key, t_union *un);
 WINDOW			*init_colors(int *key);
 void			print_help();
+void			split_print(int b, int c, t_bot *bot);
 
 #endif

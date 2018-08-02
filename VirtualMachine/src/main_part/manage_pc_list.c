@@ -104,8 +104,8 @@ t_pc				*delete_pc(t_pc *head, t_pc *to_del, t_union *un)
 			next = tmp->next;
 			if (tmp == head)
 			{
-				if (next)
-					next->prev = NULL;
+				next ? next->prev = NULL : 0;
+				free(tmp);
 				return (next);
 			}
 			--un->procces_number;

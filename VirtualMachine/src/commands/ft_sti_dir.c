@@ -19,7 +19,6 @@ void		ft_sti_reg_dir(t_pc *pc, t_union *un)
 	int		two;
 	int		three;
 	int		position;
-	uint8_t	*num;
 
 	one = un->map[cp(pc->curr_position + 2)].value;
 	two = un->map[cp(pc->curr_position + 3)].value;
@@ -29,11 +28,11 @@ void		ft_sti_reg_dir(t_pc *pc, t_union *un)
 		position = ((int)pc->reg[two - 1] + three) % IDX_MOD
 			+ pc->curr_position;
 		position = cp(position);
-		num = ft_get_char_from_int(pc, one - 1);
-		un->map[cp(position)].value = num[0];
-		un->map[cp(position + 1)].value = num[1];
-		un->map[cp(position + 2)].value = num[2];
-		un->map[cp(position + 3)].value = num[3];
+		ft_get_char_from_int(pc, one - 1, un);
+		un->map[cp(position)].value = un->ab[0];
+		un->map[cp(position + 1)].value = un->ab[1];
+		un->map[cp(position + 2)].value = un->ab[2];
+		un->map[cp(position + 3)].value = un->ab[3];
 		un->map[cp(position)].color = un->map[pc->curr_position].color;
 		un->map[cp(position + 1)].color = un->map[pc->curr_position].color;
 		un->map[cp(position + 2)].color = un->map[pc->curr_position].color;
@@ -48,7 +47,6 @@ void		ft_sti_dir_dir(t_pc *pc, t_union *un)
 	int		two;
 	int		three;
 	int		position;
-	uint8_t	*num;
 
 	one = un->map[cp(pc->curr_position + 2)].value;
 	if (one <= 16 && one > 0)
@@ -57,11 +55,11 @@ void		ft_sti_dir_dir(t_pc *pc, t_union *un)
 		three = (short)ft_get_int(un, cp(pc->curr_position + 5), 2);
 		position = (two + three) % IDX_MOD + pc->curr_position;
 		position = cp(position);
-		num = ft_get_char_from_int(pc, one - 1);
-		un->map[cp(position)].value = num[0];
-		un->map[cp(position + 1)].value = num[1];
-		un->map[cp(position + 2)].value = num[2];
-		un->map[cp(position + 3)].value = num[3];
+		ft_get_char_from_int(pc, one - 1, un);
+		un->map[cp(position)].value = un->ab[0];
+		un->map[cp(position + 1)].value = un->ab[1];
+		un->map[cp(position + 2)].value = un->ab[2];
+		un->map[cp(position + 3)].value = un->ab[3];
 		un->map[cp(position)].color = un->map[pc->curr_position].color;
 		un->map[cp(position + 1)].color = un->map[pc->curr_position].color;
 		un->map[cp(position + 2)].color = un->map[pc->curr_position].color;
@@ -70,12 +68,12 @@ void		ft_sti_dir_dir(t_pc *pc, t_union *un)
 	pc->curr_position += 7;
 }
 
-static void	f(t_union *un, int position, uint8_t *num)
+static void	f(t_union *un, int position)
 {
-	un->map[cp(position)].value = num[0];
-	un->map[cp(position + 1)].value = num[1];
-	un->map[cp(position + 2)].value = num[2];
-	un->map[cp(position + 3)].value = num[3];
+	un->map[cp(position)].value = un->ab[0];
+	un->map[cp(position + 1)].value = un->ab[1];
+	un->map[cp(position + 2)].value = un->ab[2];
+	un->map[cp(position + 3)].value = un->ab[3];
 }
 
 void		ft_sti_ind_dir(t_pc *pc, t_union *un)
@@ -84,7 +82,6 @@ void		ft_sti_ind_dir(t_pc *pc, t_union *un)
 	int		two;
 	int		three;
 	int		position;
-	uint8_t	*num;
 
 	one = un->map[cp(pc->curr_position + 2)].value;
 	if (one <= 16 && one > 0)
@@ -95,8 +92,8 @@ void		ft_sti_ind_dir(t_pc *pc, t_union *un)
 		position = (two + three) % IDX_MOD
 			+ pc->curr_position;
 		position = cp(position);
-		num = ft_get_char_from_int(pc, one - 1);
-		f(un, position, num);
+		ft_get_char_from_int(pc, one - 1, un);
+		f(un, position);
 		un->map[cp(position)].color = un->map[pc->curr_position].color;
 		un->map[cp(position + 1)].color = un->map[pc->curr_position].color;
 		un->map[cp(position + 2)].color = un->map[pc->curr_position].color;

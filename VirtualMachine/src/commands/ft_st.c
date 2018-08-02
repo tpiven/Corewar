@@ -32,7 +32,6 @@ void		ft_st_reg(t_pc *pc, t_union *un)
 void		ft_st_ind(t_pc *pc, t_union *un)
 {
 	int		position;
-	uint8_t	*num;
 	uint8_t	one;
 
 	one = un->map[cp(pc->curr_position + 2)].value;
@@ -44,15 +43,15 @@ void		ft_st_ind(t_pc *pc, t_union *un)
 	position = pc->curr_position + ((short)ft_get_int(un,
 		cp(pc->curr_position + 3), 2) % IDX_MOD);
 	position = cp(position);
-	num = ft_get_char_from_int(pc, one - 1);
-	un->map[position].value = num[0];
+	ft_get_char_from_int(pc, one - 1, un);
+	un->map[position].value = un->ab[0];
 	un->map[position].color = un->map[pc->curr_position].color;
-	un->map[cp(position + 1)].value = num[1];
+	un->map[cp(position + 1)].value = un->ab[1];
 	un->map[cp(position + 1)].color = un->map[pc->curr_position].color;
-	un->map[cp(position + 2)].value = num[2];
+	un->map[cp(position + 2)].value = un->ab[2];
 	un->map[cp(position + 2)].color = un->map[pc->curr_position].color;
 	un->map[cp(position + 3)].color = un->map[pc->curr_position].color;
-	un->map[cp(position + 3)].value = num[3];
+	un->map[cp(position + 3)].value = un->ab[3];
 	pc->curr_position = pc->curr_position + 5;
 }
 

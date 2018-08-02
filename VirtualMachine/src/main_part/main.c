@@ -28,6 +28,7 @@ static void		init(t_union *un)
 	un->c = 0;
 	un->num_plives = 0;
 	un->finish = 0;
+	un->winner = 0;
 }
 
 int				main(int argc, char **argv)

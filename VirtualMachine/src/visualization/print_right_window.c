@@ -32,10 +32,7 @@ void		print_winner_v(t_union *un)
 	{
 		if (bot->id == choose_winner(un))
 		{
-			wattron(stdscr, COLOR_PAIR(c));
-			mvprintw(27 + b, XMAX + 4, "* WINNER * %i : %s\n",
-				bot->id, bot->name);
-			wattroff(stdscr, COLOR_PAIR(c));
+			split_print(b, c, bot);
 		}
 		++c;
 		bot = bot->next;
@@ -75,7 +72,9 @@ void		print_to_right_window(t_union *un)
 	while (bot)
 	{
 		wattron(stdscr, COLOR_PAIR(c));
-		mvprintw(14 + b, XMAX + 4, "Player %i : %s\n", bot->id, bot->name);
+		mvprintw(14 + b, XMAX + 4, "Player %i : %.20s", bot->id, bot->name);
+		if (ft_strlen(bot->name) > 20)
+			mvprintw(14 + b, XMAX + 36, "...", bot->id, bot->name);
 		mvprintw(15 + b, XMAX + 5,
 				"Last live :               %i\n", bot->last_live);
 		mvprintw(16 + b, XMAX + 5,

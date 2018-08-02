@@ -6,7 +6,7 @@
 /*   By: vmiachko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 16:01:42 by vmiachko          #+#    #+#             */
-/*   Updated: 2018/07/30 16:10:52 by vmiachko         ###   ########.fr       */
+/*   Updated: 2018/08/01 15:59:28 by vmiachko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void		ft_ldi_dir(t_pc *pc, t_union *un)
 		three = un->map[cp(pc->curr_position + 5)].value;
 		if (two <= 16 && two > 0 && three <= 16 && three > 0)
 			pc->reg[three - 1] = (unsigned int)ft_get_int(un,
-				cp((one + (int)pc->reg[two - 1]) % IDX_MOD + pc->curr_position), 4);
+				cp((one + (int)pc->reg[two - 1]) %
+				IDX_MOD + pc->curr_position), 4);
 		pc->curr_position = pc->curr_position + 6;
 	}
 	if (un->arg[1] == DIR_CODE)

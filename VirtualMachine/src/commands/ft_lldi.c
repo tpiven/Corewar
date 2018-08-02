@@ -27,7 +27,7 @@ void		ft_lldi_reg(t_pc *pc, t_union *un)
 		if (one <= 16 && one > 0 && two <= 16 && two > 0
 			&& three <= 16 && three > 0)
 			pc->reg[three - 1] = (unsigned int)ft_get_int(un,
-		cp((int)(pc->reg[one - 1] + pc->reg[two - 1]) + pc->curr_position), 4);
+		cp(((int)(pc->reg[one - 1] + pc->reg[two - 1]) % 4096) + pc->curr_position), 4);
 		pc->curr_position = pc->curr_position + 5;
 	}
 	if (un->arg[1] == DIR_CODE)
@@ -36,7 +36,7 @@ void		ft_lldi_reg(t_pc *pc, t_union *un)
 		three = un->map[cp(pc->curr_position + 5)].value;
 		if (one <= 16 && one > 0 && three <= 16 && three > 0)
 			pc->reg[three - 1] = (unsigned int)ft_get_int(un,
-				cp(((int)pc->reg[one - 1] + two) + pc->curr_position), 4);
+				cp((((int)pc->reg[one - 1] + two) % 4096) + pc->curr_position), 4);
 		pc->curr_position = pc->curr_position + 6;
 	}
 }
@@ -54,7 +54,7 @@ void		ft_lldi_dir(t_pc *pc, t_union *un)
 		three = un->map[cp(pc->curr_position + 5)].value;
 		if (two <= 16 && two > 0 && three <= 16 && three > 0)
 			pc->reg[three - 1] = (unsigned int)ft_get_int(un,
-				cp((one + (int)pc->reg[two - 1]) + pc->curr_position), 4);
+				cp(((one + (int)pc->reg[two - 1]) % 4096) + pc->curr_position), 4);
 		pc->curr_position = pc->curr_position + 6;
 	}
 	if (un->arg[1] == DIR_CODE)
@@ -63,7 +63,7 @@ void		ft_lldi_dir(t_pc *pc, t_union *un)
 		three = un->map[cp(pc->curr_position + 6)].value;
 		if (three <= 16 && three > 0)
 			pc->reg[three - 1] = (unsigned int)ft_get_int(un,
-				cp((one + two) + pc->curr_position), 4);
+				cp(((one + two) % 4096) + pc->curr_position), 4);
 		pc->curr_position = pc->curr_position + 7;
 	}
 }
@@ -82,7 +82,7 @@ void		ft_lldi_ind(t_pc *pc, t_union *un)
 		three = un->map[cp(pc->curr_position + 5)].value;
 		if (two <= 16 && two > 0 && three <= 16 && three > 0)
 			pc->reg[three - 1] = (unsigned int)ft_get_int(un,
-				cp((one + pc->reg[two - 1]) + pc->curr_position), 4);
+				cp(((one + pc->reg[two - 1]) % 4096) + pc->curr_position), 4);
 		pc->curr_position = pc->curr_position + 6;
 	}
 	if (un->arg[1] == DIR_CODE)
@@ -91,7 +91,7 @@ void		ft_lldi_ind(t_pc *pc, t_union *un)
 		three = un->map[cp(pc->curr_position + 6)].value;
 		if (three <= 16 && three > 0)
 			pc->reg[three - 1] = (unsigned int)ft_get_int(un,
-				cp((one + two) + pc->curr_position), 4);
+				cp(((one + two) % 4096) + pc->curr_position), 4);
 		pc->curr_position = pc->curr_position + 7;
 	}
 }

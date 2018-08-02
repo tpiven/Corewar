@@ -6,7 +6,7 @@
 /*   By: vmiachko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 15:46:42 by vmiachko          #+#    #+#             */
-/*   Updated: 2018/07/30 15:50:22 by vmiachko         ###   ########.fr       */
+/*   Updated: 2018/08/01 15:58:55 by vmiachko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void				ft_and_ind_reg(t_pc *pc, t_union *un)
 	unsigned int	three;
 
 	one = (unsigned int)ft_get_int(un, cp(pc->curr_position +
-			((short)ft_get_int(un, cp(pc->curr_position + 2), 2) % IDX_MOD)), 4);
+			((short)ft_get_int(un, cp(pc->curr_position + 2),
+		2) % IDX_MOD)), 4);
 	two = un->map[cp(pc->curr_position + 4)].value;
 	three = un->map[cp(pc->curr_position + 5)].value;
 	if (two <= 16 && two > 0 && three <= 16 && three > 0)

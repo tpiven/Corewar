@@ -28,6 +28,7 @@ void				ft_live(t_pc *pc, t_union *un)
 		{
 			tmp->last_live = un->cycle;
 			++tmp->num_live;
+			un->winner = tmp->id;
 			if (un->c == 1)
 				ft_printf("Player %d (%s) is said to be alive\n",
 			tmp->id, tmp->name);

@@ -72,25 +72,18 @@ void		clear_num_live(t_union *un)
 int			choose_winner(t_union *un)
 {
 	t_bot	*bot;
-	int		max;
+
 	int		id;
 
 	bot = un->bot;
-	if (bot)
+	id = un->winner;
+	if (un->winner == 0)
 	{
-		max = bot->last_live;
-		id = bot->id;
-	}
-	else
-		return (-5);
-	while (bot)
-	{
-		if (max < bot->last_live)
+		while (bot)
 		{
-			max = bot->last_live;
 			id = bot->id;
+			bot = bot->next;
 		}
-		bot = bot->next;
 	}
 	return (id);
 }

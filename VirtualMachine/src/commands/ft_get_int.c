@@ -69,18 +69,15 @@ int			ft_get_int(t_union *un, int start, int lenght)
 	return (ar);
 }
 
-uint8_t		*ft_get_char_from_int(t_pc *pc, unsigned int num)
+void		ft_get_char_from_int(t_pc *pc, unsigned int num, t_union *un)
 {
-	uint8_t	*arg;
 	int		k;
 
-	arg = malloc(sizeof(unsigned char) * 4);
 	k = pc->reg[num];
-	arg[0] = k >> 24;
-	arg[1] = (k & 0xFF0000) >> 16;
-	arg[2] = (k & 0xFF00) >> 8;
-	arg[3] = k & 0xFF;
-	return (arg);
+	un->ab[0] = k >> 24;
+	un->ab[1] = (k & 0xFF0000) >> 16;
+	un->ab[2] = (k & 0xFF00) >> 8;
+	un->ab[3] = k & 0xFF;
 }
 
 void		ft_check_codage(uint8_t codage, t_union *un)

@@ -55,14 +55,6 @@ void			without_visual(t_union *un)
 	}
 	if (!un->dump || un->dump > un->cycle)
 		print_winner(un);
-//	t_bot	*bot;
-//	bot = un->bot;
-//	ft_printf("CYCLES: %i\n", un->cycle);
-//	while (bot)
-//	{
-//		ft_printf("LAST LIVE BOT <%i> NUM: %i\n", bot->id, bot->last_live);
-//		bot = bot->next;
-//	}
 }
 
 void			execute_command(t_pc *pc, t_union *un)

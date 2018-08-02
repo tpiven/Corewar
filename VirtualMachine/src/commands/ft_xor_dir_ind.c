@@ -6,7 +6,7 @@
 /*   By: vmiachko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 16:58:50 by vmiachko          #+#    #+#             */
-/*   Updated: 2018/07/30 17:06:03 by vmiachko         ###   ########.fr       */
+/*   Updated: 2018/08/01 16:00:05 by vmiachko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void				ft_xor_ind_dir(t_pc *pc, t_union *un)
 
 	one = (unsigned int)ft_get_int(un, cp(pc->curr_position +
 		((short)ft_get_int(un, cp(pc->curr_position + 2), 2) % IDX_MOD)), 4);
-
 	two = (unsigned int)ft_get_int(un, cp(pc->curr_position + 4), 4);
 	three = un->map[cp(pc->curr_position + 8)].value;
 	if (three <= 16 && three > 0)
@@ -83,7 +82,7 @@ void				ft_xor_reg_ind(t_pc *pc, t_union *un)
 
 	one = un->map[cp(pc->curr_position + 2)].value;
 	two = (unsigned int)ft_get_int(un, cp(pc->curr_position +
-		((short)ft_get_int(un, cp(pc->curr_position + 3), 2) %IDX_MOD)), 4);
+		((short)ft_get_int(un, cp(pc->curr_position + 3), 2) % IDX_MOD)), 4);
 	three = un->map[cp(pc->curr_position + 5)].value;
 	if (one <= 16 && one > 0 && three <= 16 && three > 0)
 	{

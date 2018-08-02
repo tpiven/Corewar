@@ -29,7 +29,6 @@
 # define LLDI_COD(x) (x != 57 && x != 25)
 
 int					ft_get_int(t_union *un, int start, int lenght);
-uint8_t				*ft_get_char_from_int(t_pc *pc, unsigned int num);
 void				ft_check_codage(uint8_t codage, t_union *un);
 void				ft_live(t_pc *pc, t_union *un);
 void				ft_load(t_pc *pc, t_union *un);
@@ -72,5 +71,6 @@ void				ft_xor_ind_dir(t_pc *pc, t_union *un);
 void				ft_xor_reg_ind(t_pc *pc, t_union *un);
 void				ft_xor_dir_ind(t_pc *pc, t_union *un);
 int					ft_move_wrong_codage(t_union *un, int command);
+void				ft_get_char_from_int(t_pc *pc, unsigned int num, t_union *un);
 
 #endif
